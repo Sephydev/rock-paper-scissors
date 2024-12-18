@@ -1,6 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 3) + 1;
     switch (randomNumber) {
@@ -36,29 +33,56 @@ function getHumanChoice() {
     }
 }
 
-function playRound(humanChoice, computerChoice) {
-    if (humanChoice === "Rock" && computerChoice === "Scissors") {
-        console.log(`You win! ${humanChoice} beats ${computerChoice}.`)
-        ++humanScore;
-    } else if (humanChoice === "Scissors" && computerChoice === "Rock") {
-        console.log(`You lose... ${computerChoice} beats ${humanChoice}.`)
-        ++computerScore;
-    } else if (humanChoice === "Rock" && computerChoice === "Paper") {
-        console.log(`You lose... ${computerChoice} beats ${humanChoice}.`)
-        ++computerScore;
-    } else if (humanChoice === "Paper" && computerChoice === "Rock") {
-        console.log(`You win! ${humanChoice} beats ${computerChoice}.`)
-        ++humanScore;
-    } else if (humanChoice === "Paper" && computerChoice === "Scissors") {
-        console.log(`You lose... ${computerChoice} beats ${humanChoice}.`)
-        ++computerChoice;
+function evaluateScore(humanScore, computerScore) {
+    if (humanScore > computerScore) {
+        console.log(`The winner is... You! The score is: ${humanScore} - ${computerScore}`);
+    } else if (humanScore < computerScore) {
+        console.log(`The winner is... The computer... The score is: ${humanScore} - ${computerScore}`);
     } else {
-        console.log(`Equality! ${humanSelection} does not beat ${computerSelection}.`)
-        ++humanScore;
+        console.log(`There is an equality! The score is: ${humanScore} - ${computerScore}`);
     }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
 
-playRound(humanSelection, computerSelection);
+    function playRound() {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice();
+
+        if (humanChoice === "Rock" && computerChoice === "Scissors") {
+            console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+            ++humanScore;
+        } else if (humanChoice === "Scissors" && computerChoice === "Rock") {
+            console.log(`You lose... ${computerChoice} beats ${humanChoice}.`);
+            ++computerScore;
+        } else if (humanChoice === "Rock" && computerChoice === "Paper") {
+            console.log(`You lose... ${computerChoice} beats ${humanChoice}.`);
+            ++computerScore;
+        } else if (humanChoice === "Paper" && computerChoice === "Rock") {
+            console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+            ++humanScore;
+        } else if (humanChoice === "Paper" && computerChoice === "Scissors") {
+            console.log(`You lose... ${computerChoice} beats ${humanChoice}.`);
+            ++computerScore;
+        } else if (humanChoice === "Scissors" && computerChoice === "Paper") {
+            console.log(`You win! ${humanChoice} beats ${computerChoice}.`)
+            ++humanScore;
+        } else {
+            console.log(`Equality! ${humanChoice} does not beat ${computerChoice}.`);
+        }
+    }
+
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+    playRound();
+
+    evaluateScore(humanScore, computerScore);
+}
+
+
+
+playGame();
